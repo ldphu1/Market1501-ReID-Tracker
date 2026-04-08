@@ -1,0 +1,79 @@
+import os
+import argparse
+import torch
+from torchvision import transforms
+import torch.nn.functional as F
+from PIL import Image
+from tqdm import tqdm
+from model import *
+
+def get_transform():
+    return transforms.Compose([
+        transforms.Resize((256, 128)),
+        transforms.ToTensor(),
+        transforms.Normalize(
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225]
+        )
+    ])
+
+
+def extract_embedding(model, img_path, transform, device):
+    img = Image.open(img_path).convert('RGB')
+    img = transform(img).unsqueeze(0).to(device)
+
+    with torch.no_grad():
+        emb = model(img)
+        emb = F.normalize(emb, p=2, dim=1)
+
+    return emb.cpu()
+
+
+def build_gallery(data_dir, model_path, save_path, device):
+    model = resnet50_extractor(512)
+    model.load_state_dict(torch.load(model_path, map_location=device))
+    model.to(device)
+    model.eval()
+
+    transform = get_transform()
+
+    gallery_embs = []
+    gallery_ids = []
+    gallery_paths = []
+
+    valid_images = [f for f in os.listdir(data_dir) if f.endswith('.jpg')]
+
+    for img_name in tqdm(valid_images):
+        full_path = os.path.join(data_dir, img_name)
+
+        emb = extract_embedding(model, full_path, transform, device)
+        pid = img_name.split("_")[0]
+
+        gallery_paths.append(full_path)
+        gallery_embs.append(emb)
+        gallery_ids.append(pid)
+
+    gallery_embs = torch.cat(gallery_embs)
+
+    print(f"Saving features to {save_path}...")
+    torch.save({
+        "embs": gallery_embs,
+        "ids": gallery_ids,
+        "paths": gallery_paths
+    }, save_path)
+    print("Done!")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Extract and build gallery features for Re-ID")
+    parser.add_argument("--data_dir", type=str, default="market1501/bounding_box_test",
+                        help="Path to gallery images")
+    parser.add_argument("--model_path", type=str, default="weights/best_model.pth", help="Path to the trained model weights")
+    parser.add_argument("--save_path", type=str, default="weights/gallery_market1501.pt", help="Path to save the extracted features")
+
+    args = parser.parse_args()
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+
+    build_gallery(args.data_dir, args.model_path, args.save_path, device)
