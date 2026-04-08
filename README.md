@@ -34,6 +34,7 @@ Extract features from your custom images by pointing the script to your new fold
 `python3 build_gallery.py --data_dir data/my_custom_gallery/ --save_path weights/my_custom_gallery.pt`.
 
 **3. For video inference:** simply run `python3 demo.py --video_path data/video.avi`. 
+
   *(Note: You can change the input video path, threshold, and output path inside the arguments of `demo.py`).*
 
 # Dataset
