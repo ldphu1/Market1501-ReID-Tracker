@@ -56,9 +56,9 @@ The model structure (`model.py`) utilizes a pre-trained **ResNet-50** backbone c
 I trained the model for 30 epochs using the Adam optimizer and Triplet Margin Loss. The model's performance was monitored using TensorBoard (saved in `weights/`). During training, the model's Rank-1 and Rank-5 accuracies are evaluated on the query set every 5 epochs. 
 
 <p align = "center">
-<img width="33%" height="345" alt="image" src="https://github.com/user-attachments/assets/55f9b6e4-adcf-408e-8445-608db24a8a30" />
+<img width="30%" height="345" alt="Screenshot 2026-04-08 231535" src="https://github.com/user-attachments/assets/ee3acede-62bd-4c7f-a84c-f66533a53b56" />
+<img width="60%" height="347" alt="Screenshot 2026-04-08 231615" src="https://github.com/user-attachments/assets/52f014a2-6a02-4758-86ea-c0268a46cb96" />
 
-<img width="66%" height="345" alt="image" src="https://github.com/user-attachments/assets/c5825f81-5372-4739-a26d-e3ce73786443" />
 </p>
 
 As shown in the charts above, the loss converges smoothly, and the model achieves impressive final results on the Market-1501 dataset: **Rank-1 accuracy of ~92.3%** and **Rank-5 accuracy of ~97.4%**. The checkpoint with the highest Rank-1 score is automatically saved as (`best_model.pth`).
