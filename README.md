@@ -54,6 +54,7 @@ You need to download the **Market-1501** dataset and rename directory to `market
 The model structure (`model.py`) utilizes a pre-trained **ResNet-50** backbone combined with an Adaptive Average Pooling layer. This is followed by a fully connected layer to reduce the dimensions to 512, and a 1D Batch Normalization layer with L2 normalization for robust feature learning.
 
 I trained the model for 30 epochs using the Adam optimizer and Triplet Margin Loss. The model's performance was monitored using TensorBoard (saved in `weights/`). During training, the model's Rank-1 and Rank-5 accuracies are evaluated on the query set every 5 epochs. 
+
 <p align = "center">
 <img width="33%" height="345" alt="image" src="https://github.com/user-attachments/assets/55f9b6e4-adcf-408e-8445-608db24a8a30" />
 
