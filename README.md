@@ -45,7 +45,7 @@ The structure requires the standard Market-1501 splits: `bounding_box_train/` fo
 # Trained models
 
 Due to GitHub's file size limits, the trained weights are hosted externally. 
- **[Download best.pt here](https://drive.google.com/file/d/1wFvfnLZDDCHhaULvct_feOG76z7I7t39/view?usp=drive_link)**
+ **[Download best.pt here](https://drive.google.com/drive/folders/1GIc0b7MpvtXpEHc4TFDwY3hDQz6u2Ylm?usp=sharing)**
 
 *Note: After downloading, please place the `best.pt` file inside the `weights/` folder before running any scripts.*
 
