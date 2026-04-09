@@ -42,6 +42,13 @@ Extract features from your custom images by pointing the script to your new fold
 The dataset used for training my model is the **Market-1501** dataset.
 The structure requires the standard Market-1501 splits: `bounding_box_train/` for training triplets, and `query/` along with `bounding_box_test/` for evaluation.
 
+# Trained models
+
+Due to GitHub's file size limits, the trained weights are hosted externally. 
+ **[Download best.pt here](https://drive.google.com/file/d/1wFvfnLZDDCHhaULvct_feOG76z7I7t39/view?usp=drive_link)**
+
+*Note: After downloading, please place the `best.pt` file inside the `weights/` folder before running any scripts.*
+
 # Training
 
 You need to download the **Market-1501** dataset and rename directory to `market1501/`.
