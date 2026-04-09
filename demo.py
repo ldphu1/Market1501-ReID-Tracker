@@ -100,7 +100,7 @@ def process_video(args, reid_model, detector, gallery_data, transform, device):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--video_path", type=str, default="data/video.mp4",required=True, help="Path to the original video")
+    parser.add_argument("--video_path", type=str, default="data/video.mp4", help="Path to the original video")
     parser.add_argument("--output_path", type=str, default="output_reid.mp4", help="Path to save the resulting video")
     parser.add_argument("--model_weights", type=str, default="weights/best_model.pth", help="Model weight file")
     parser.add_argument("--gallery_path", type=str, default="weights/gallery_market1501.pt", help="Path to gallery file")
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    reid_model = resnet50(512)
+    reid_model = resnet50_extractor(512)
     reid_model.load_state_dict(torch.load(args.model_weights, map_location=device))
     reid_model.to(device)
     reid_model.eval()
