@@ -108,6 +108,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
 
     reid_model = resnet50_extractor(512)
     reid_model.load_state_dict(torch.load(args.model_weights, map_location=device))
@@ -121,3 +122,4 @@ if __name__ == "__main__":
     transform = get_transform()
 
     process_video(args, reid_model, detector, gallery_data, transform, device)
+    print("DONE")
