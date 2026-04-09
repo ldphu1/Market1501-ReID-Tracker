@@ -49,6 +49,9 @@ def build_gallery(data_dir, model_path, save_path, device):
         emb = extract_embedding(model, full_path, transform, device)
         pid = img_name.split("_")[0]
 
+        if pid in ['0000', '-1']:
+            continue
+
         gallery_paths.append(full_path)
         gallery_embs.append(emb)
         gallery_ids.append(pid)
